@@ -2,8 +2,15 @@ const express = require('express');
 
 const routes = express.Router();
 
-//CONTROLLERS
+//PAGE CONTROLLERS
 
-const audioController = require('./audioController')
+const voiceController = require('./controllers/page_controllers/pageVoice')
+
+
+//ROUTES
+
+///////ROUTES AND REQUISITIONS FOR THE AUDIOS TABLE
+
+routes.get('/', voiceController.getPageAudio); // GET cards
 
 module.exports = routes;

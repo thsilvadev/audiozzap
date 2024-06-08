@@ -1,8 +1,9 @@
 const https = require("https");
 const fs = require("fs");
 const path = require("path");
+require(`dotenv`).config();
 
-const db = require("../db");
+const db = require("../../db");
 const knex = require("knex")(db["development"]);
 
 module.exports = {
@@ -31,8 +32,7 @@ module.exports = {
       -4
     )}`;
 
-    const rawFolderPath =
-      "c:\\Users\\thiago\\Documents\\THSILVADEV\\Audiozzap\\Projeto\\downloads";
+    const rawFolderPath = `${process.env.AUDIO_DOWNLOADS_PATH}`;
     const outputPath = path.join(rawFolderPath, outputFileName);
     const file = fs.createWriteStream(outputPath);
     try {

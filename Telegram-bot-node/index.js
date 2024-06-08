@@ -32,7 +32,7 @@ app.listen(port, ip, () => {
 const {
   postTelegramAudio,
   downloadTelegramAudio,
-} = require("./internal_controllers/internalVoice");
+} = require("./controllers/telegram_controllers/telegramVoice");
 
 // FUNCTIONS FIRST
 
