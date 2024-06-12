@@ -24,6 +24,18 @@
   color: white;
 }
 
+.App h1{
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 72px;
+  color: white;
+}
+
+.App span{
+  color: greenyellow;
+  display: inline-block;
+  transform: rotate(15deg);
+}
+
 .App-link {
   color: #61dafb;
 }
