@@ -3,3 +3,5 @@ gitToken.txt
 /audiozzap-page/node_modules
 /Telegram-bot-node/.env
 /audiozzap-page/.env
+/Whatsapp-bot-node/node_modules
+/Whatsapp-bot-node/.env
