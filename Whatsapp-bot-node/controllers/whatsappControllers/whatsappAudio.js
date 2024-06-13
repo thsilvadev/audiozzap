@@ -26,5 +26,18 @@ module.exports = {
       Buffer.from(audioData.data, "base64")
     );
     console.log(`File '${filePath}' has been created successfully.`)
+
+    //2. Post in DB
+
+    const result = await knex("Audios").insert({
+      wpp_message_id: message.id.id,
+      duration: message.duration,
+      created_at: message.date,
+      mime_type: audioData.mime_type,
+      file_size: audioData.filesize,
+      user_wpp_id: message.from,
+      audio_data: audioData.data
+    })
+    console.log('Post sucessful. Result: ', result)
   },
 };

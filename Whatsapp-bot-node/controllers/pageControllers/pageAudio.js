@@ -14,10 +14,10 @@ module.exports = {
 
   async getAudio(req, res) {
     const { params } = req;
-    const fileId = params.file_unique_id;
+    const fileId = params.id;
     console.log(fileId);
     try {
-      const result = await knex("Audios").where("file_unique_id", fileId);
+      const result = await knex("Audios").where("id", fileId);
       return res.status(200).json(result);
     } catch (err) {
       console.log("error", err);

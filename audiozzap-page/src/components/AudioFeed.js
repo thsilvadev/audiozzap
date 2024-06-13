@@ -38,6 +38,10 @@ function AudioFeed () {
                     fileId={audio.file_id}
                     userTelegramId={audio.user_telegram_id}
                     downloadUrl={audio.download_url}
+                    userWppId={audio.user_wpp_id}
+                    fileSize={audio.file_size}
+                    mimeType={audio.mime_type}
+                    wppAudioData={audio.audio_data}
                 />
             ))
             }

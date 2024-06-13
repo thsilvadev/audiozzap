@@ -1,4 +1,0 @@
-2024/06/12-18:35:32.601 2d2c Reusing MANIFEST C:\Users\Acer\Documents\ThsilvaDev\Audiozzap\Development\Whatsapp-bot-node\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2024/06/12-18:35:32.601 2d2c Recovering log #208
-2024/06/12-18:35:32.666 2d2c Reusing old log C:\Users\Acer\Documents\ThsilvaDev\Audiozzap\Development\Whatsapp-bot-node\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000208.log 
-2024/06/12-18:35:34.421 4750 Manual compaction at level-0 from '\x00F\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00G\x00\x00\x00' @ 0 : 0; will stop at (end)

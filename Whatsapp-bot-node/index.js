@@ -99,6 +99,7 @@ client.on('message', async msg => {
                 const audioData = await msg.downloadMedia();
                 console.log(audioData)
                 postWhatsappAudio(message, audioData)
+                console.log(message)
             } catch (err){
                 console.log(err)
             }
@@ -106,6 +107,6 @@ client.on('message', async msg => {
 
         }
     } else {
-        message.reply('por enquanto só estamos recebendo áudios. Experimente nos enviar um!')
+        message.reply('Opa! Audiozzap na escuta! Estamos em fase de testes e por hora só estamos recebendo audios. Experimente nos enviar um!')
     }
 });
