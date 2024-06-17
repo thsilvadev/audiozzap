@@ -16,6 +16,8 @@ function Audio({
   mimeType,
   wppAudioData,
 }) {
+
+  //if audio origin is Telegram, we`ll be downloading from downloadUrl src.
   if (telegramMessageId) {
     return (
       <div>
@@ -27,6 +29,9 @@ function Audio({
         </div>
       </div>
     );
+
+    //If not, we`ll encode it right here in frontend.
+    
   } else if (wppAudioData) {
     // Decode Base64 string to binary data
     function base64ToArrayBuffer(wppAudioData) {
