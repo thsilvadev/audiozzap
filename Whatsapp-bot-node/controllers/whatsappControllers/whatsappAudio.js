@@ -2,13 +2,14 @@ const https = require("https");
 const fs = require("fs");
 const path = require("path");
 require(`dotenv`).config();
-
+const whisper= require('whisper-node');
 const db = require("../../db");
 const knex = require("knex")(db["development"]);
 
 module.exports = {
   async postWhatsappAudio(message, audioData) {
-    //1. Download and store audio to local path
+
+    //1. Download audio to local machine
 
     // Specify the directory where files will be saved
     const outputDirectory = "./output/";
@@ -27,17 +28,23 @@ module.exports = {
     );
     console.log(`File '${filePath}' has been created successfully.`)
 
-    //2. Post in DB
+    //2. Transcribe it into text
+    const transcript = await whisper(`${filePath}.ogg`);
+    console.log(transcript)
+
+    //3. Post in DB
 
     const result = await knex("Audios").insert({
       wpp_message_id: message.id.id,
       duration: message.duration,
       created_at: message.date,
-      mime_type: audioData.mime_type,
+      mime_type: audioData.mimetype,
       file_size: audioData.filesize,
       user_wpp_id: message.from,
-      audio_data: audioData.data
+      audio_data: audioData.data,
+      transcription: transcript
     })
-    console.log('Post sucessful. Result: ', result)
+
+    return `'Post sucessful. Result: ${result}`
   },
 };
