@@ -92,7 +92,7 @@ module.exports = {
 
     //3. Post in DB
 
-    const result = await knex("Audios").insert({
+    const result = await knex("audios").insert({
       wpp_message_id: message.id.id,
       duration: message.duration,
       created_at: message.date,

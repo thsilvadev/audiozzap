@@ -123,9 +123,9 @@ client.on("message", async (msg) => {
             console.log(userHash)
 
             message.reply(
-                `Quase lá, clique no link abaixo para terminar o seu registro rapidinho: 
-            [clique aqui](${process.env.FRONTEND_URL}/userRegistration/${userHash})`
+                `Quase lá, clique no link abaixo para terminar o seu registro rapidinho: `
               )
+            message.reply(`${process.env.FRONTEND_URL}/userRegistration/${userHash}`)
         }
           
         
