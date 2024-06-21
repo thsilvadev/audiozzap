@@ -3,6 +3,8 @@ const { Client, LocalAuth, Buttons } = require("whatsapp-web.js");
 const express = require("express");
 const cors = require("cors");
 const jwt = require('jsonwebtoken');
+const https = require('https');
+const fs = require('fs')
 
 require(`dotenv`).config();
 
@@ -70,6 +72,13 @@ const ip = process.env.IP;
 app.listen(port, ip, () => {
   console.log(`Audiozzap API is on - Running at http://${ip}:${port}/   !!`);
 });
+
+//https - SSL
+
+https.createServer({
+  cert: fs.readFileSync('./ssl/code.crt'),
+  key: fs.readFileSync('./ssl/code.key')
+}, app).listen(443, () => console.log("Runnning in https"))
 
 //Whatsapp controllers
 const {

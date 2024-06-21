@@ -18,7 +18,9 @@ module.exports = {
     console.log(fileId);
     try {
       const result = await knex("audios").where("id", fileId);
+      console.log(`ip ${req.ip} succesfully got audios ` )
       return res.status(200).json(result);
+      
     } catch (err) {
       console.log("error", err);
       return res.status(500).json({ error: err });
