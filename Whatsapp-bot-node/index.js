@@ -33,6 +33,9 @@ function unixToAmazonTime(unixTimestamp) {
 
 const client = new Client({
   authStrategy: new LocalAuth(),
+	puppeteer: {
+		args: ['--no-sandbox', '--disable-setuid-sandbox']
+	}
 });
 
 client.on("qr", (qr) => {
@@ -61,8 +64,8 @@ app.use(express.json()); // Tells express that the response will be in JSON
 
 app.use(routes); // Routing
 
-const port = 8080;
-const ip = "127.0.0.1";
+const port = process.env.PORT;
+const ip = process.env.IP;
 
 app.listen(port, ip, () => {
   console.log(`Audiozzap API is on - Running at http://${ip}:${port}/   !!`);
