@@ -133,7 +133,9 @@ client.on("message", async (msg) => {
             `Tudo certo, estamos subindo seu áudio ao ar...`
             )
           const postAudio = await postWhatsappAudio(message, audioData);
-          console.log(postAudio)
+          console.log('post Audio: ', postAudio)
+		message.reply('Tudo pronto! Aqui está seu áudio: ')
+              message.reply(`https://www.audiozzap.com/${postAudio}`)
             } else {
             // Hash the user's password using bcrypt
             const userHash = jwt.sign({phoneNumber: phoneNumber, message: message, audioData: audioData}, process.env.USERHASH_TOKEN_TAG);
