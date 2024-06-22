@@ -4,7 +4,7 @@ const path = require("path");
 require(`dotenv`).config();
 const db = require("../../db");
 const knex = require("knex")(db["development"]);
-
+const EventEmitter = require('events');
 //transcription imports
 
 const FormData = require("form-data");
@@ -78,16 +78,16 @@ module.exports = {
     // Convert OGG to WAV
   // const wavFilePath = path.join(outputDirectory, `${messageId}.wav`);
 
-  ffmpeg(oggFilePath)
-    .toFormat('wav')
-    .on('end', () => {
-      console.log(`File '${wavFilePath}' has been created successfully.`);
+ // ffmpeg(oggFilePath)
+   // .toFormat('wav')
+   // .on('end', () => {
+     // console.log(`File '${wavFilePath}' has been created successfully.`);
       // Optionally delete the OGG file
-    })
-    .on('error', (err) => {
-      console.error(`An error occurred: ${err.message}`);
-    })
-    .save(wavFilePath);
+   // })
+   // .on('error', (err) => {
+    //  console.error(`An error occurred: ${err.message}`);
+  //  })
+//    .save(wavFilePath);
 
   //   const transcription = whisper(wavFilePath)
   //   console.log(transcription)
@@ -105,12 +105,14 @@ module.exports = {
       transcription: null,
     });
 
+	    const eventEmitter = new EventEmitter();
+
     //4. Feedback User
     eventEmitter.emit('originalAudioPosted', result.id)
 
-    return `Post sucessful. Result: ${result}`;
+    return result;
     } catch (error) {
-      console.log(error)  
+      console.log(error)
     }
     
   },

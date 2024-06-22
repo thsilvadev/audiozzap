@@ -11,7 +11,7 @@ require(`dotenv`).config();
 
 //Some function definitions
 
-  //Event Emitter
+//Event Emitter
 
 const eventEmitter = new EventEmitter();
 
@@ -40,7 +40,7 @@ function unixToAmazonTime(unixTimestamp) {
 
 const client = new Client({
   authStrategy: new LocalAuth(),
-	puppeteer: {
+  puppeteer: {
 		args: ['--no-sandbox', '--disable-setuid-sandbox']
 	}
 });
@@ -120,38 +120,42 @@ client.on("message", async (msg) => {
                     console.log('Button details:', confirmPoll.buttons); */
 
         const audioData = await msg.downloadMedia();
-        
-        const phoneNumber = message.from.slice(0, -5)
-        console.log(phoneNumber)
-        
-        const isUserRegistered = await getUser(phoneNumber)
-        console.log(isUserRegistered)
-        
-        
-        if (isUserRegistered){
-          message.reply(
-            `Tudo certo, estamos subindo seu áudio ao ar...`
-            )
+
+        const phoneNumber = message.from.slice(0, -5);
+        console.log(phoneNumber);
+
+        const isUserRegistered = await getUser(phoneNumber);
+        console.log(isUserRegistered);
+
+        if (isUserRegistered) {
+          message.reply(`Tudo certo, estamos subindo seu áudio ao ar...`);
           const postAudio = await postWhatsappAudio(message, audioData);
-          console.log(postAudio)
-            } else {
-            // Hash the user's password using bcrypt
-            const userHash = jwt.sign({phoneNumber: phoneNumber, message: message, audioData: audioData}, process.env.USERHASH_TOKEN_TAG);
-            console.log(userHash)
+          console.log(postAudio);
+          message.reply("Tudo pronto! Aqui está seu áudio: ");
+          message.reply(`https://www.audiozzap.com/${postAudio}`);
+        } else {
+          // Hash the user's password using bcrypt
+          const userHash = jwt.sign(
+            {
+              phoneNumber: phoneNumber,
+              message: message,
+              audioData: audioData,
+            },
+            process.env.USERHASH_TOKEN_TAG
+          );
+          console.log(userHash);
 
-            message.reply(
-                `Quase lá, clique no link abaixo para terminar o seu registro rapidinho: `
-              )
-            message.reply(`${process.env.FRONTEND_URL}/userRegistration/${userHash}`)
-            eventEmitter.on('originalAudioPosted', (audioId) => {
-              message.reply('Tudo pronto! Aqui está seu áudio: ')
-              message.reply(`https://www.audiozzap.com/${audioId}`)
-            })
+          message.reply(
+            `Quase lá, clique no link abaixo para terminar o seu registro rapidinho: `
+          );
+          message.reply(
+            `${process.env.FRONTEND_URL}/userRegistration/${userHash}`
+          );
+          eventEmitter.on("originalAudioPosted", (audioId) => {
+            message.reply("Tudo pronto! Aqui está seu áudio: ");
+            message.reply(`https://www.audiozzap.com/${audioId}`);
+          });
         }
-          
-        
-        
-
       } catch (err) {
         console.log(err);
       }
