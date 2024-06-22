@@ -108,9 +108,9 @@ module.exports = {
     //4. Feedback User
     eventEmitter.emit('originalAudioPosted', result.id)
 
-    return `'Post sucessful. Result: ${result}`;
+    return `Post sucessful. Result: ${result}`;
     } catch (error) {
-      console.log
+      console.log(error)  
     }
     
   },

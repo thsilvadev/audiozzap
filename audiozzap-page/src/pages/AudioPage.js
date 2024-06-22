@@ -11,7 +11,7 @@ const AudioPage = () => {
 
     async function getAudio () {
         try { 
-            const result = await Axios.get(`${window.name}/${id}`).then(
+            const result = await Axios.get(`${window.name}/audio/${id}`).then(
              (response) => {
                  setAudio(response.data)
                  console.log(audio)
@@ -49,4 +49,4 @@ const AudioPage = () => {
     
 }
 
-export default AudioPage
+export default AudioPage;
