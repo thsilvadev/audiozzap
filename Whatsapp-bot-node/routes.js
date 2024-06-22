@@ -13,7 +13,7 @@ const userController = require("./controllers/pageControllers/pageUser")
 
 routes.get('/', voiceController.getAudios); // GET cards
 routes.get('/:userId', voiceController.getUserAudios)
-routes.get('/audio/:file_unique_id', voiceController.getAudio)
+routes.get('/audio/:id', voiceController.getAudio)
 
 //////ROUTES AND REQUISITIONS FOR THE USERS TABLE
 

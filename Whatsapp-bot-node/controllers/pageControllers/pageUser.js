@@ -3,6 +3,7 @@ const knex = require("knex")(db["development"]);
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const saltRounds = 10;
+const { postWhatsappAudio } = require("../whatsappControllers/whatsappAudio")
 
 module.exports = {
   async postUser(req, res) {
@@ -20,6 +21,10 @@ module.exports = {
           password: hashedPassword,
         });
         console.log("user ", phoneNumber, "registered!");
+        //post original audio caught before user registering itself.
+        if (data.message && data.audioData){
+          await postWhatsappAudio(data.message, data.audioData);
+        }
         res.status(200).json({
           message: "user successfully registered",
         });

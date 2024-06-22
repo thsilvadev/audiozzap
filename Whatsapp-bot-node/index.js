@@ -4,11 +4,16 @@ const express = require("express");
 const cors = require("cors");
 const jwt = require('jsonwebtoken');
 const https = require('https');
-const fs = require('fs')
+const fs = require('fs');
+const EventEmitter = require('events')
 
 require(`dotenv`).config();
 
 //Some function definitions
+
+  //Event Emitter
+
+const eventEmitter = new EventEmitter();
 
 //Time in Amazon Time
 
@@ -115,29 +120,33 @@ client.on("message", async (msg) => {
                     console.log('Button details:', confirmPoll.buttons); */
 
         const audioData = await msg.downloadMedia();
-        const postAudio = await postWhatsappAudio(message, audioData);
-        console.log(postAudio)
-
+        
         const phoneNumber = message.from.slice(0, -5)
         console.log(phoneNumber)
-
+        
         const isUserRegistered = await getUser(phoneNumber)
         console.log(isUserRegistered)
         
-
+        
         if (isUserRegistered){
-            message.reply(
-                `Tudo certo, estamos subindo seu áudio ao ar, confirma? responda com 'ok'`
-              )
-        } else {
+          message.reply(
+            `Tudo certo, estamos subindo seu áudio ao ar...`
+            )
+          const postAudio = await postWhatsappAudio(message, audioData);
+          console.log(postAudio)
+            } else {
             // Hash the user's password using bcrypt
-            const userHash = jwt.sign({phoneNumber: phoneNumber}, process.env.USERHASH_TOKEN_TAG);
+            const userHash = jwt.sign({phoneNumber: phoneNumber, message: message, audioData: audioData}, process.env.USERHASH_TOKEN_TAG);
             console.log(userHash)
 
             message.reply(
                 `Quase lá, clique no link abaixo para terminar o seu registro rapidinho: `
               )
             message.reply(`${process.env.FRONTEND_URL}/userRegistration/${userHash}`)
+            eventEmitter.on('originalAudioPosted', (audioId) => {
+              message.reply('Tudo pronto! Aqui está seu áudio: ')
+              message.reply(`https://www.audiozzap.com/${audioId}`)
+            })
         }
           
         

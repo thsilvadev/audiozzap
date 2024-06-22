@@ -17,7 +17,9 @@ const ffmpeg = require('fluent-ffmpeg');
 
 module.exports = {
   async postWhatsappAudio(message, audioData) {
-    //1. Download audio to local machine
+
+    try {
+//1. Download audio to local machine
 
     // Specify the directory where files will be saved
     const outputDirectory = "./output/";
@@ -103,6 +105,13 @@ module.exports = {
       transcription: null,
     });
 
+    //4. Feedback User
+    eventEmitter.emit('originalAudioPosted', result.id)
+
     return `'Post sucessful. Result: ${result}`;
+    } catch (error) {
+      console.log
+    }
+    
   },
 };
