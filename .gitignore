@@ -7,3 +7,4 @@ gitToken.txt
 /Whatsapp-bot-node/.env
 /Whatsapp-bot-node/.*/
 /Whatsapp-bot-node/output
+/.ssh
