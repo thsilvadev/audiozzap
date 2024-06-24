@@ -1,8 +1,10 @@
 .audioContainer {
     height: 5em;
-    width: 25em;
+    width: 100%;
+    max-width: 300px; /* Adjust based on your design */
     border: solid black 2px;
     border-radius: 8px;
     background-color: rgb(181, 251, 165);
     padding-top: 15px;
 }
+

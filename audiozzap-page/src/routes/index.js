@@ -14,7 +14,7 @@ function AppRoutes() {
       <Route path="/:id" element={<AudioPage />} />
       <Route path="/userCheck/:userHash" element={<UserCheck />} />
       <Route
-        path="/userRegistration/:userHash"
+        path="/userRegistration/:encodedURIHash"
         element={<UserRegistration />}
       />
     </Routes>

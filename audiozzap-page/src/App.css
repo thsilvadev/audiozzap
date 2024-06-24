@@ -30,6 +30,10 @@
   color: white;
 }
 
+.App p{
+  color: white;
+}
+
 .App span{
   color: greenyellow;
   display: inline-block;

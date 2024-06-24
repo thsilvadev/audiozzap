@@ -17,6 +17,8 @@ function Audio({
   wppAudioData,
 }) {
 
+  console.log('audio data: ', wppAudioData)
+
   //if audio origin is Telegram, we`ll be downloading from downloadUrl src.
   if (telegramMessageId) {
     return (

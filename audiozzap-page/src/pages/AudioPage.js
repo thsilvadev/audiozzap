@@ -6,6 +6,8 @@ import Audio from "../components/Audio";
 
 const AudioPage = () => {
     const [ audio, setAudio ] = useState([])
+    // Real audio object from the array
+    const realAudio = audio.length > 0 ? audio[0] : null;
 
     const { id } = useParams();  
 
@@ -13,8 +15,8 @@ const AudioPage = () => {
         try { 
             const result = await Axios.get(`${window.name}/audio/${id}`).then(
              (response) => {
+                console.log(response.data)
                  setAudio(response.data)
-                 console.log(audio)
              }
             )
          } catch (err){
@@ -26,23 +28,29 @@ const AudioPage = () => {
         getAudio()
     }, [])
 
+    useEffect(() => {
+        console.log('audio:', audio);
+    }, [audio]);
+
     return (
         <div className={styles.feedContainer}>
+                {realAudio && (
                 <Audio
-                    id={audio.id}
-                    wppMessageId={audio.wpp_message_id}
-                    duration={audio.duration}
-                    language={audio.language}
-                    createdAt={audio.created_at}
-                    telegramMessageId={audio.telegram_message_id}
-                    fileId={audio.file_id}
-                    userTelegramId={audio.user_telegram_id}
-                    downloadUrl={audio.download_url}
-                    userWppId={audio.user_wpp_id}
-                    fileSize={audio.file_size}
-                    mimeType={audio.mime_type}
-                    wppAudioData={audio.audio_data}
+                    id={realAudio.id}
+                    wppMessageId={realAudio.wpp_message_id}
+                    duration={realAudio.duration}
+                    language={realAudio.language}
+                    createdAt={realAudio.created_at}
+                    telegramMessageId={realAudio.telegram_message_id}
+                    fileId={realAudio.file_id}
+                    userTelegramId={realAudio.user_telegram_id}
+                    downloadUrl={realAudio.download_url}
+                    userWppId={realAudio.user_wpp_id}
+                    fileSize={realAudio.file_size}
+                    mimeType={realAudio.mime_type}
+                    wppAudioData={realAudio.audio_data}
                 />
+            )}
         </div>
     )
     
