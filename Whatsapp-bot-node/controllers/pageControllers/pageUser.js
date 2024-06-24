@@ -6,8 +6,6 @@ const saltRounds = 10;
 const eventEmitter  = require("../../eventManager");
 
 
-console.log('pageUser logging eventEmitter: ', eventEmitter)
-
 module.exports = {
   async postUser(req, res) {
     const { encodedURIHash } = req.params;

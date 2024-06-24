@@ -11,9 +11,6 @@ require(`dotenv`).config();
 
 //Some function definitions
 
-//Event Emitter
-console.log('indexjs logging eventEmitter: ', eventEmitter)
-
 //Time in Amazon Time
 
 function unixToAmazonTime(unixTimestamp) {
@@ -59,7 +56,7 @@ client.on("disconnected", () => {
   console.log("Client is disconnected.")
 })
 
-client.initialize();
+// client.initialize();
 
 // Express initialization
 

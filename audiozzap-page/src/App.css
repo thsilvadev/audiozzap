@@ -30,11 +30,16 @@
   color: white;
 }
 
+.App h2 {
+  color: white;
+  font-family: 'Ubuntu', sans-serif;
+}
+
 .App p{
   color: white;
 }
 
-.App span{
+.z{
   color: greenyellow;
   display: inline-block;
   transform: rotate(15deg);

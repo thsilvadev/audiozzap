@@ -16,8 +16,7 @@ function Audio({
   mimeType,
   wppAudioData,
 }) {
-
-  console.log('audio data: ', wppAudioData)
+  console.log("audio data: ", wppAudioData);
 
   //if audio origin is Telegram, we`ll be downloading from downloadUrl src.
   if (telegramMessageId) {
@@ -33,7 +32,6 @@ function Audio({
     );
 
     //If not, we`ll encode it right here in frontend.
-    
   } else if (wppAudioData) {
     // Decode Base64 string to binary data
     function base64ToArrayBuffer(wppAudioData) {
@@ -46,27 +44,25 @@ function Audio({
       return bytes.buffer;
     }
 
-    // Convert Base64 to OGG Blob
-    function base64ToOggBlob(wppAudioData) {
+    // Convert Base64 to WAV Blob
+    function base64ToWavBlob(wppAudioData) {
       const arrayBuffer = base64ToArrayBuffer(wppAudioData);
-      return new Blob([arrayBuffer], { type: "audio/ogg" });
+      return new Blob([arrayBuffer], { type: "audio/wav" });
     }
 
-    // Create an Object URL for the OGG Blob
-    function createOggURL(wppAudioData) {
-      const oggBlob = base64ToOggBlob(wppAudioData);
-      return URL.createObjectURL(oggBlob);
+    // Create an Object URL for the WAV Blob
+    function createWavURL(wppAudioData) {
+      const wavBlob = base64ToWavBlob(wppAudioData);
+      return URL.createObjectURL(wavBlob);
     }
 
-    const oggUrl = createOggURL(wppAudioData);
+    const wavUrl = createWavURL(wppAudioData);
+    console.log(wavUrl);
 
     return (
       <div>
         <div className={styles.audioContainer}>
-          <AudioPlayer
-            src={oggUrl}
-            onPlay={(e) => console.log("onPlay")}
-          />
+          <AudioPlayer src={wavUrl} onPlay={(e) => console.log("onPlay")} />
         </div>
       </div>
     );
