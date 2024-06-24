@@ -5,15 +5,14 @@ const cors = require("cors");
 const jwt = require('jsonwebtoken');
 const https = require('https');
 const fs = require('fs');
-const EventEmitter = require('events')
+const eventEmitter  = require("./eventManager");
 
 require(`dotenv`).config();
 
 //Some function definitions
 
 //Event Emitter
-
-const eventEmitter = new EventEmitter();
+console.log('indexjs logging eventEmitter: ', eventEmitter)
 
 //Time in Amazon Time
 
@@ -38,6 +37,7 @@ function unixToAmazonTime(unixTimestamp) {
 
 // Bot initialization
 
+//the puppeteer configuration is to abble it to run on linux root user.
 const client = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: {
@@ -105,12 +105,14 @@ client.on("message", async (msg) => {
     "id: ",
     message.id,
     "de: ",
-    message._data.notifyName
+    message._data.notifyName,
+    "número: ",
+    message.from
   );
   console.log(message);
   if (message._data.waveform) {
     if (message._data.duration <= 120) {
-      message.reply("processando...");
+      message.reply("Um momento, estamos processando...");
       try {
         //send poll to confirm
         /* const result = await client.sendMessage(message.from, confirmPoll)
@@ -122,39 +124,51 @@ client.on("message", async (msg) => {
         const audioData = await msg.downloadMedia();
 
         const phoneNumber = message.from.slice(0, -5);
-        console.log(phoneNumber);
+        console.log('phone number: ', phoneNumber);
 
         const isUserRegistered = await getUser(phoneNumber);
-        console.log(isUserRegistered);
+        console.log('is user registered? ', isUserRegistered);
 
         if (isUserRegistered) {
-          message.reply(`Tudo certo, estamos subindo seu áudio ao ar...`);
+          await message.reply(`Tudo certo, estamos subindo seu áudio ao ar...`);
           const postAudio = await postWhatsappAudio(message, audioData);
-          console.log(postAudio);
-          message.reply("Tudo pronto! Aqui está seu áudio: ");
-          message.reply(`https://www.audiozzap.com/${postAudio}`);
+
+          if (postAudio){
+            message.reply("Pronto! Aqui está seu áudio: ");
+            message.reply(`https://www.audiozzap.com/${postAudio}`);
+          } else {
+            message.reply('estamos em manutenção técnica :/ tente novamente mais tarde.')
+          }
         } else {
           // Hash the user's password using bcrypt
           const userHash = jwt.sign(
             {
               phoneNumber: phoneNumber,
-              message: message,
-              audioData: audioData,
             },
             process.env.USERHASH_TOKEN_TAG
           );
           console.log(userHash);
+          // Encode Hash in URI to use in URL:
+          const encodedURIHash = encodeURIComponent(userHash);
 
-          message.reply(
+          await message.reply(
             `Quase lá, clique no link abaixo para terminar o seu registro rapidinho: `
           );
           message.reply(
-            `${process.env.FRONTEND_URL}/userRegistration/${userHash}`
+            `${process.env.FRONTEND_URL}/userRegistration/${encodedURIHash}`
           );
-          eventEmitter.on("originalAudioPosted", (audioId) => {
-            message.reply("Tudo pronto! Aqui está seu áudio: ");
-            message.reply(`https://www.audiozzap.com/${audioId}`);
-          });
+          eventEmitter.on("userPosted", async (userId) => {
+            message.reply('Perfeito! Estamos subindo seu áudio ao ar...')
+            const postAudio = await postWhatsappAudio(message, audioData);
+          })
+            eventEmitter.on("originalAudioPosted", (audioId) => {
+              message.reply("Tudo pronto! Aqui está seu áudio: ");
+              message.reply(`https://www.audiozzap.com/${audioId}`);
+            });
+
+          
+       
+          
         }
       } catch (err) {
         console.log(err);

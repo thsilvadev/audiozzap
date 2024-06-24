@@ -17,7 +17,7 @@ routes.get('/audio/:id', voiceController.getAudio)
 
 //////ROUTES AND REQUISITIONS FOR THE USERS TABLE
 
-routes.post('/userRegistration/:userHash', userController.postUser)
+routes.post('/userRegistration/:encodedURIHash', userController.postUser)
 
 
 
