@@ -4,7 +4,7 @@ const path = require("path");
 require(`dotenv`).config();
 const db = require("../../db");
 const knex = require("knex")(db["development"]);
-const EventEmitter = require('events');
+const eventEmitter  = require("../../eventManager");
 //transcription imports
 
 const FormData = require("form-data");
@@ -105,10 +105,8 @@ module.exports = {
       transcription: null,
     });
 
-	    const eventEmitter = new EventEmitter();
-
     //4. Feedback User
-    eventEmitter.emit('originalAudioPosted', result.id)
+    eventEmitter.emit('originalAudioPosted', result)
 
     return result;
     } catch (error) {
