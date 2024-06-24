@@ -21,7 +21,7 @@ function App() {
           </b>
         </h1>
         </a>
-        
+        <h2>Mande seu áudio no WhatsApp para: +55 92 99477-0666</h2>
       </div>
       <BrowserRouter>
         <AppRoutes />
