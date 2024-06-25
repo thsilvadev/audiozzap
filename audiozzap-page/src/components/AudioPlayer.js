@@ -11,8 +11,7 @@ const AudioPlayer = ({ src }) => {
   return (
     <div>
       <audio controls>
-        <source src={src} type="audio/mpeg" />
-        <source src={src.endsWith('.mp3') ? src.replace('.mp3', '.ogg') : src} type="audio/ogg" />
+        <source src={src} type="audio/wav" />
         Your browser does not support the audio element.
       </audio>
     </div>
