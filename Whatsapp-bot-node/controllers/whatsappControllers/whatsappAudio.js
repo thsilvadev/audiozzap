@@ -22,18 +22,18 @@ module.exports = {
 //1. Download audio to local machine
 
     // Specify the directory where files will be saved
-    const outputDirectory = "./output/";
+    // const outputDirectory = "./output/";
 
     // Ensure the output directory exists; if not, create it
-    if (!fs.existsSync(outputDirectory)) {
-      fs.mkdirSync(outputDirectory);
-    }
+    // if (!fs.existsSync(outputDirectory)) {
+    //   fs.mkdirSync(outputDirectory);
+    // }
 
     // Build the full file path
-    const oggFilePath = `${path.join(outputDirectory, message.id.id)}.ogg`;
+    // const oggFilePath = `${path.join(outputDirectory, message.id.id)}.ogg`;
 
-    fs.writeFileSync(`${oggFilePath}`, Buffer.from(audioData.data, "base64"));
-    console.log(`File '${oggFilePath}' has been created successfully.`);
+    // fs.writeFileSync(`${oggFilePath}`, Buffer.from(audioData.data, "base64"));
+    // console.log(`File '${oggFilePath}' has been created successfully.`);
     //2. Transcribe it into text
 
     // const audioTranscription = async (oggFilePath, apiKey) => {

@@ -29,5 +29,16 @@ module.exports = {
     }
   },
 
+  async logAudio (req, res) {
+    const {message, error} = req.body;
+    if (message) {
+      console.log('message: ', message)
+
+    }
+    if (error) {
+      console.log('error: ', error)
+    }
+  },
+
   async getUserAudios(req, res) {},
 };

@@ -9,6 +9,10 @@ const userController = require("./controllers/pageControllers/pageUser")
 
 //ROUTES
 
+///////GENERAL ROUTES
+
+routes.post('/log', voiceController.logAudio)
+
 ///////ROUTES AND REQUISITIONS FOR THE AUDIOS TABLE
 
 routes.get('/', voiceController.getAudios); // GET cards
@@ -18,6 +22,8 @@ routes.get('/audio/:id', voiceController.getAudio)
 //////ROUTES AND REQUISITIONS FOR THE USERS TABLE
 
 routes.post('/userRegistration/:encodedURIHash', userController.postUser)
+
+
 
 
 
