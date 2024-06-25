@@ -1,5 +1,5 @@
 import React, {useState, useEffect  } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Axios from "axios";
 import styles from "../styles/AudioPage.module.css"
 import Audio from "../components/Audio";
@@ -13,7 +13,7 @@ const AudioPage = () => {
 
     async function getAudio () {
         try { 
-            const result = await Axios.get(`${window.name}/audio/${id}`).then(
+            await Axios.get(`${window.name}/audio/${id}`).then(
              (response) => {
                 console.log(response.data)
                  setAudio(response.data)

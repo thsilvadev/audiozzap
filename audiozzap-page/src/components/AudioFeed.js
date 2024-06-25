@@ -10,7 +10,7 @@ function AudioFeed () {
 
     async function getAudios () {
         try { 
-            const result = await Axios.get(`${window.name}`).then(
+             await Axios.get(`${window.name}`).then(
              (response) => {
                  setAudios(response.data)
                  console.log(audios)

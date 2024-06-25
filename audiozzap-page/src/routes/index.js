@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 //Pages that require authentication
-import { RequireAuth } from "react-auth-kit";
 
 import UserRegistration from "../pages/UserRegistration";
 import UserCheck from "../pages/UserCheck";
